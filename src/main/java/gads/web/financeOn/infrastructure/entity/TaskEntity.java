@@ -13,5 +13,6 @@ public class TaskEntity {
     private UserEntity user;
     private String title;
     private String description;
+    private Boolean completed = Boolean.FALSE;
 
 }
