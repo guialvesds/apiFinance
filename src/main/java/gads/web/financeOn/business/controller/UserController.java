@@ -47,9 +47,8 @@ public class UserController {
 
     // Build controi o objeto
     @DeleteMapping("/{userId}")
-    public ResponseEntity<Void> delete(String userId){
+    public ResponseEntity<Void> delete(String userId) {
         this.userService.delete(userId);
         return ResponseEntity.noContent().build();
     }
-    //teste
 }

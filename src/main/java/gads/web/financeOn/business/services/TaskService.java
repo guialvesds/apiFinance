@@ -10,12 +10,16 @@ import java.util.List;
 public class TaskService {
 
     private final TaskRepository taskRepository;
+    private final UserService userService;
 
-    public TaskService(TaskRepository taskRepository) {
+    public TaskService(TaskRepository taskRepository, UserService userService) {
         this.taskRepository = taskRepository;
+        this.userService = userService;
     }
 
     public TaskEntity save(TaskEntity taskEntity) {
+        var user = this.userService.findId(taskEntity.getUser().getId());
+        taskEntity.setUser(user);
         return this.taskRepository.save(taskEntity);
     }
 
