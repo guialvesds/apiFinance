@@ -51,4 +51,5 @@ public class UserController {
         this.userService.delete(userId);
         return ResponseEntity.noContent().build();
     }
+    //teste
 }
