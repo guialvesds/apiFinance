@@ -27,9 +27,9 @@ public class UserController {
     }
 
     //Aqui não utilizei o List pois vamos retornar apenas um usuário
-    @GetMapping("/{userId}")
-    public ResponseEntity<UserEntity> getById(String userId){
-        var user = this.userService.findId(userId);
+    @GetMapping("/{id}")
+    public ResponseEntity<UserEntity> getById(@PathVariable String id){
+        var user = this.userService.findId(id);
         return ResponseEntity.ok(user);
     }
 
@@ -46,9 +46,9 @@ public class UserController {
     }
 
     // Build controi o objeto
-    @DeleteMapping("/{userId}")
-    public ResponseEntity<Void> delete(String userId) {
-        this.userService.delete(userId);
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(String id) {
+        this.userService.delete(id);
         return ResponseEntity.noContent().build();
     }
 }

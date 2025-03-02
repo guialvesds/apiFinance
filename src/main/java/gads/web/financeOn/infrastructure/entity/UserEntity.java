@@ -5,9 +5,10 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Data
-@Document(collation = "user_entity")
+@Document("user")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -21,8 +22,6 @@ public class UserEntity {
     private String SecondName;
     private String email;
     private String password;
-    private String document;
-    private LocalDateTime createAt;
-    private LocalDateTime updatedAt;
+
 
 }

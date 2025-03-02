@@ -20,8 +20,8 @@ public class TaskController {
 
     @GetMapping
     public ResponseEntity<List<TaskEntity>> findAll() {
-        var users = this.taskService.getAll();
-        return ResponseEntity.ok(users);
+        var tasks = this.taskService.getAll();
+        return ResponseEntity.ok(tasks);
     }
 
     @GetMapping("/{id}")
