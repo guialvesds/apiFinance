@@ -1,0 +1,31 @@
+package gads.web.financeOn.infrastructure.security;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
+
+@Configuration
+public class SecurityConfig {
+
+    //Segurança de acesso as rotas
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http
+                .csrf(csrf -> csrf.disable()) // Desabilita o CSRF
+                .authorizeHttpRequests(authorize -> authorize
+                        .requestMatchers("/api/v1/users").permitAll()
+                        .requestMatchers("/api/v1/tasks").permitAll() // Permite acesso ao endpoint de cadastro
+                        .anyRequest().authenticated() // Requer autenticação para outros endpoints
+                );
+        return http.build();
+    }
+
+    // Segurança de encrypt para senhas de usuários
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+}

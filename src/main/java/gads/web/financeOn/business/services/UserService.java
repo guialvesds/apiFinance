@@ -5,6 +5,8 @@ import gads.web.financeOn.infrastructure.entity.UserEntity;
 import gads.web.financeOn.infrastructure.repository.UserRepository;
 import org.springframework.beans.BeanUtils;
 import gads.web.financeOn.business.exceptions.BusinessException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -14,9 +16,12 @@ import java.util.List;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
-  public UserService (UserRepository userRepository) {
+    @Autowired
+  public UserService (UserRepository userRepository, PasswordEncoder passwordEncoder) {
       this.userRepository = userRepository;
+      this.passwordEncoder = passwordEncoder;
   }
 
   public List<UserEntity> findAll(){
@@ -43,6 +48,7 @@ public class UserService {
               user.setCreatedAt(LocalDateTime.now());
               user.setUpdatedAt(LocalDateTime.now());
               user.setPerfil(PerfilUserStatus.BASIC);
+              user.setPassword(passwordEncoder.encode(user.getPassword()));
               return userRepository.save(user);
           } else {
               throw ex;
