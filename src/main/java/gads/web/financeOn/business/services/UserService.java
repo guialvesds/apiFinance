@@ -1,11 +1,16 @@
 package gads.web.financeOn.business.services;
 
+import gads.web.financeOn.business.enums.PerfilUserStatus;
 import gads.web.financeOn.infrastructure.entity.UserEntity;
 import gads.web.financeOn.infrastructure.repository.UserRepository;
 import org.springframework.beans.BeanUtils;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -24,7 +29,14 @@ public class UserService {
       return this.userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
   }
 
+    public UserEntity findEmail(String email) {
+        return userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
+    }
+
   public UserEntity save(UserEntity user){
+      user.setCreatedAt(LocalDateTime.now());
+      user.setUpdatedAt(LocalDateTime.now());
+      user.setPerfil(PerfilUserStatus.BASIC);
       return this.userRepository.save(user);
   }
 
