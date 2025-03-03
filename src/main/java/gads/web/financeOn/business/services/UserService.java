@@ -1,6 +1,6 @@
 package gads.web.financeOn.business.services;
 
-import gads.web.financeOn.business.enums.PerfilUserStatus;
+import gads.web.financeOn.infrastructure.enums.PerfilUserStatus;
 import gads.web.financeOn.infrastructure.entity.UserEntity;
 import gads.web.financeOn.infrastructure.repository.UserRepository;
 import org.springframework.beans.BeanUtils;

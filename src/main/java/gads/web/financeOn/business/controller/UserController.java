@@ -1,6 +1,6 @@
 package gads.web.financeOn.business.controller;
 
-import gads.web.financeOn.business.enums.PerfilUserStatus;
+import gads.web.financeOn.infrastructure.enums.PerfilUserStatus;
 import gads.web.financeOn.business.services.UserService;
 import gads.web.financeOn.infrastructure.entity.UserEntity;
 

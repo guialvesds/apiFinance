@@ -1,4 +1,4 @@
-package gads.web.financeOn.business.enums;
+package gads.web.financeOn.infrastructure.enums;
 
 public enum PerfilUserStatus {
     BASIC,
