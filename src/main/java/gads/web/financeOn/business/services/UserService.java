@@ -29,15 +29,27 @@ public class UserService {
       return this.userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
   }
 
-    public UserEntity findEmail(String email) {
+  public UserEntity findEmail(String email) {
         return userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
     }
 
   public UserEntity save(UserEntity user){
-      user.setCreatedAt(LocalDateTime.now());
-      user.setUpdatedAt(LocalDateTime.now());
-      user.setPerfil(PerfilUserStatus.BASIC);
-      return this.userRepository.save(user);
+
+      try {
+          this.findEmail(user.getEmail());
+          throw new RuntimeException("Email already exists");
+
+      } catch (RuntimeException ex) {
+          // Se a exceção for "User not found", significa que o email não existe
+          if ("User not found".equals(ex.getMessage())) {
+              user.setCreatedAt(LocalDateTime.now());
+              user.setUpdatedAt(LocalDateTime.now());
+              user.setPerfil(PerfilUserStatus.BASIC);
+              return userRepository.save(user);
+          } else {
+              throw ex;
+          }
+      }
   }
 
   public UserEntity update(UserEntity user){

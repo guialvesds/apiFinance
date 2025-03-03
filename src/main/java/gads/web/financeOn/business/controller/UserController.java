@@ -35,11 +35,6 @@ public class UserController {
         return ResponseEntity.ok(user);
     }
 
-    @GetMapping("/{email}")
-    public ResponseEntity<UserEntity> getByemail(@PathVariable String email){
-
-    }
-
     @PostMapping
     public ResponseEntity<UserEntity> save(@RequestBody UserEntity user, @RequestParam(required = false) String perfil) {
         //Aqui converto o perfil recebido para o tipo ENUM
