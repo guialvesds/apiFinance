@@ -35,7 +35,6 @@ public class TaskService {
         var taskCompleted = this.finById(taskId);
         taskCompleted.setCompleted(true);
         this.save(taskCompleted);
-
     }
 
     public void delete(String taskId){
