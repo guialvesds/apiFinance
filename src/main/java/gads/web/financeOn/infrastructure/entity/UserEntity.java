@@ -25,7 +25,7 @@ public class UserEntity  {
     private String email;
     private String password;
     private PerfilUserStatus perfil;
-    private LocalDateTime createdAt;
+    private LocalDateTime createdAt = LocalDateTime.now();
     private LocalDateTime updatedAt;
 
 }

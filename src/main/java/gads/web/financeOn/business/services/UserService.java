@@ -44,7 +44,6 @@ public class UserService {
       } catch (BusinessException ex) {
           // Se a exceção for "User not found", significa que o email não existe
           if ("User not found".equals(ex.getMessage())) {
-              user.setCreatedAt(LocalDateTime.now());
               user.setUpdatedAt(LocalDateTime.now());
               user.setPerfil(PerfilUserStatus.BASIC);
               user.setPassword(passwordEncoder.encode(user.getPassword()));
