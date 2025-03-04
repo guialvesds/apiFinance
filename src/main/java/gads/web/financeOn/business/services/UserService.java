@@ -3,7 +3,6 @@ package gads.web.financeOn.business.services;
 import gads.web.financeOn.infrastructure.enums.PerfilUserStatus;
 import gads.web.financeOn.infrastructure.entity.UserEntity;
 import gads.web.financeOn.infrastructure.repository.UserRepository;
-import org.springframework.beans.BeanUtils;
 import gads.web.financeOn.business.exceptions.BusinessException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;

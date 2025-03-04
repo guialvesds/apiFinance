@@ -18,10 +18,13 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/api/v1/users").permitAll()
                         .requestMatchers("/api/v1/tasks").permitAll()
-                        .requestMatchers("/api/v1/users/{id}").permitAll()// Permite acesso ao endpoint de cadastro
+                        .requestMatchers("/api/v1/users/{id}").permitAll()
+                        .requestMatchers("/api/v1/wallets").permitAll()
+                        .requestMatchers("/api/v1/wallets/{id}").permitAll()// Permite acesso ao endpoint de cadastro
                         .anyRequest().authenticated() // Requer autenticação para outros endpoints
                 );
         return http.build();
+
     }
 
     // Segurança de encrypt para senhas de usuários
