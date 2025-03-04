@@ -56,11 +56,27 @@ public class UserService {
       }
   }
 
-  public UserEntity update(UserEntity user){
-      var userEntity = this.findId(user.getId());
-      BeanUtils.copyProperties(user, userEntity, "id"); //Copia tudo que vem da minha propierade para o banco
-      return  this.userRepository.save(userEntity);
-  }
+    public UserEntity update(UserEntity user) {
+        UserEntity userEntity = findId(user.getId());
+        userEntity.setUpdatedAt(LocalDateTime.now());
+
+        if (user.getPrimaryName() != null) {
+            userEntity.setPrimaryName(user.getPrimaryName());
+        }
+        if (user.getSecondName() != null) {
+            userEntity.setSecondName(user.getSecondName());
+        }
+        if (user.getEmail() != null) {
+            userEntity.setEmail(user.getEmail());
+        }
+        if (user.getPassword() != null) {
+            userEntity.setPassword(passwordEncoder.encode(user.getPassword()));
+        }
+        if(user.getPerfil() != null) {
+         userEntity.setPerfil(user.getPerfil());
+        }
+        return userRepository.save(userEntity);
+    }
 
   public void delete(String userId){
        this.userRepository.deleteById(userId);

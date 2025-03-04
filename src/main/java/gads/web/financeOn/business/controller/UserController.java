@@ -45,10 +45,11 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(user);
     }
 
-    @PutMapping
-    public ResponseEntity<UserEntity> update(@RequestBody UserEntity user) {
-        user = this.userService.update(user);
-        return ResponseEntity.ok(user);
+    @PutMapping("/{id}")
+    public ResponseEntity<UserEntity> update(@PathVariable String id, @RequestBody UserEntity user) {
+        user.setId(id);
+        UserEntity updatedUser = this.userService.update(user);
+        return ResponseEntity.ok(updatedUser);
     }
 
     // Build controi o objeto
