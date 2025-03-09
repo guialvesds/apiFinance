@@ -10,4 +10,5 @@ public class FinanceOnApplication {
 		SpringApplication.run(FinanceOnApplication.class, args);
 	}
 
+	// Teste commit new machine 
 }
