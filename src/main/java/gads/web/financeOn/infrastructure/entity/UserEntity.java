@@ -1,5 +1,6 @@
 package gads.web.financeOn.infrastructure.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import gads.web.financeOn.infrastructure.enums.PerfilUserStatus;
 import lombok.*;
 import org.springframework.data.annotation.Id;
@@ -23,6 +24,7 @@ public class UserEntity  {
     private String SecondName;
     @Indexed(unique = true)
     private String email;
+    @JsonIgnore
     private String password;
     private PerfilUserStatus perfil;
     private LocalDateTime createdAt = LocalDateTime.now();

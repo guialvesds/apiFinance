@@ -34,6 +34,11 @@ public class UserController {
         return ResponseEntity.ok(user);
     }
 
+    @GetMapping("/on")
+    public String getApi(){
+        return "Api no ar!";
+    }
+
     @PostMapping
     public ResponseEntity<UserEntity> save(@RequestBody UserEntity user, @RequestParam(required = false) String perfil) {
         //Aqui converto o perfil recebido para o tipo ENUM
