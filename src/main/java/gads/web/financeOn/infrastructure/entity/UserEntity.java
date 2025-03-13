@@ -24,7 +24,7 @@ public class UserEntity  {
     private String SecondName;
     @Indexed(unique = true)
     private String email;
-    @JsonIgnore
+
     private String password;
     private PerfilUserStatus perfil;
     private LocalDateTime createdAt = LocalDateTime.now();
