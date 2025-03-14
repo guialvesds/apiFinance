@@ -20,8 +20,8 @@ public class UserEntity  {
 
     @Id
     private String id;
-    private String PrimaryName;
-    private String SecondName;
+    private String primaryName;
+    private String secondName;
     @Indexed(unique = true)
     private String email;
 

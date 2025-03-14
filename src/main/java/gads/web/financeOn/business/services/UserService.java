@@ -14,8 +14,10 @@ import java.util.List;
 @Service
 public class UserService {
 
-    private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
+    @Autowired
+    private  UserRepository userRepository;
+    @Autowired
+    private  PasswordEncoder passwordEncoder;
 
     @Autowired
   public UserService (UserRepository userRepository, PasswordEncoder passwordEncoder) {

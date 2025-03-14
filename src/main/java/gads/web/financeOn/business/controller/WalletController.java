@@ -1,6 +1,7 @@
 package gads.web.financeOn.business.controller;
 
 import gads.web.financeOn.business.services.WalletService;
+import gads.web.financeOn.infrastructure.dto.WalletDTO;
 import gads.web.financeOn.infrastructure.entity.UserEntity;
 import gads.web.financeOn.infrastructure.entity.WalletEntity;
 import org.springframework.http.HttpStatus;
@@ -20,22 +21,21 @@ public class WalletController {
     }
 
     @GetMapping
-    public ResponseEntity<List<WalletEntity>> getAllWallets(){
+    public ResponseEntity<List<WalletDTO>> getAllWallets(){
         var wallets = this.walletService.findAll();
         return ResponseEntity.ok(wallets);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<WalletEntity> findById(@PathVariable String id){
+    public ResponseEntity<WalletDTO> findById(@PathVariable String id){
         var wallet = this.walletService.findById(id);
         return ResponseEntity.ok(wallet);
     }
 
-    @PostMapping("/{id}")
-    public ResponseEntity<WalletEntity> save(@RequestBody WalletEntity wallet, @PathVariable UserEntity id){
-
-        wallet = this.walletService.save(wallet, id);
-        return ResponseEntity.status(HttpStatus.CREATED).body(wallet);
+    @PostMapping("/{userId}")
+    public ResponseEntity<WalletDTO> save(@RequestBody WalletDTO walletDTO, @PathVariable String userId) {
+        var savedWallet = walletService.save(walletDTO, userId);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedWallet);
     }
 
     // Build controi o objeto

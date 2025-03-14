@@ -12,5 +12,9 @@ public class WalletDTO {
     private Double balance;
     private LocalDateTime createdAt;
     private String userId;
+    private String userPrimaryName;
+    private String userSecondName;
+    private String userEmail;
+
 
 }

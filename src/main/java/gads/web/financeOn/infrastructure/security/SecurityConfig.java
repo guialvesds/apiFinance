@@ -20,6 +20,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/v1/tasks").permitAll()
                         .requestMatchers("/api/v1/users/{id}").permitAll()
                         .requestMatchers("/api/v1/wallets").permitAll()
+                        .requestMatchers("/api/v1/wallets/*").permitAll()
                         .requestMatchers("/api/v1/wallets/{id}").permitAll()// Permite acesso ao endpoint de cadastro
                         .anyRequest().authenticated() // Requer autenticação para outros endpoints
                 );
