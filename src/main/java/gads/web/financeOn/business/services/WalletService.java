@@ -44,7 +44,6 @@ public class WalletService {
 
         }
 
-
         return walletDTO;
     }
 
@@ -76,10 +75,6 @@ public class WalletService {
         return toDTO(walletEntity);
     }
 
-    public WalletEntity save1(WalletEntity wallet, UserEntity userId){
-        wallet.setUser(userId);
-        return walletRepository.save(wallet);
-    }
 
     public WalletDTO save(WalletDTO walletDTO, String userId) {
         WalletEntity walletEntity = toEntity(walletDTO);
@@ -92,6 +87,23 @@ public class WalletService {
 
         WalletEntity savedWallet = walletRepository.save(walletEntity);
 
+        return toDTO(savedWallet);
+    }
+
+
+    public WalletDTO addBalance(String walletId, double amountToAdd) {
+        // Busca a carteira pelo ID
+        WalletEntity walletEntity = walletRepository.findById(walletId)
+                .orElseThrow(() -> new BusinessException("Wallet not found"));
+
+        // Atualiza o saldo
+        double newBalance = walletEntity.getBalance() + amountToAdd;
+        walletEntity.setBalance(newBalance);
+
+        // Salva a carteira atualizada
+        WalletEntity savedWallet = walletRepository.save(walletEntity);
+
+        // Converte para DTO e retorna
         return toDTO(savedWallet);
     }
 
