@@ -27,6 +27,10 @@ public class WalletService {
         this.userRepository = userRepository;
     }
 
+    public BusinessException exceptionWalletNotFound() {
+        return new BusinessException("Wallet not found");
+    }
+
     // Aqui converto WalletEntity para WalletDTO
     private WalletDTO toDTO(WalletEntity walletEntity) {
         WalletDTO walletDTO = new WalletDTO();
@@ -81,7 +85,7 @@ public class WalletService {
 
         // Aqui busca o UserEntity pelo userId
         UserEntity userEntity = userRepository.findById(userId)
-                .orElseThrow(() -> new BusinessException("User not found"));
+                .orElseThrow(() -> exceptionWalletNotFound());
 
         walletEntity.setUser(userEntity);
 
@@ -90,11 +94,10 @@ public class WalletService {
         return toDTO(savedWallet);
     }
 
-
     public WalletDTO addBalance(String walletId, double amountToAdd) {
         // Busca a carteira pelo ID
         WalletEntity walletEntity = walletRepository.findById(walletId)
-                .orElseThrow(() -> new BusinessException("Wallet not found"));
+                .orElseThrow(() -> exceptionWalletNotFound());
 
         // Atualiza o saldo
         double newBalance = walletEntity.getBalance() + amountToAdd;
@@ -105,6 +108,18 @@ public class WalletService {
 
         // Converte para DTO e retorna
         return toDTO(savedWallet);
+    }
+
+    public WalletDTO removeBalance(String walletId, double amountRemove){
+        WalletEntity walletEntity = walletRepository.findById(walletId)
+                .orElseThrow(() -> new BusinessException("Wallet not found"));
+
+        double newBalance = walletEntity.getBalance() - amountRemove;
+        walletEntity.setBalance(newBalance);
+
+        WalletEntity saveWallet = walletRepository.save(walletEntity);
+        
+        return toDTO(saveWallet);
     }
 
     public void delete(String userId){

@@ -48,7 +48,7 @@ public class WalletController {
         return ResponseEntity.noContent().build();
     }
 
-    @PatchMapping("/{id}")
+    @PatchMapping("/add/{id}")
     public ResponseEntity<WalletDTO> addBalance(@PathVariable String id, @RequestBody WalletDTO walletDTO) {
         Double amountToAdd = walletDTO.getBalance();
         if (amountToAdd == null) {
@@ -59,6 +59,15 @@ public class WalletController {
         return ResponseEntity.ok(updatedWallet);
     }
 
+    @PatchMapping("/remove/{idWallet}")
+    public ResponseEntity<WalletDTO> removeBalance(@PathVariable String idWallet, @RequestBody WalletDTO walletDTO){
+        Double amountToRemove = walletDTO.getBalance();
+        if (amountToRemove == null) {
+            throw new BusinessException("O campo 'amountToRemove' é obrigatório.");
+        }
 
+        WalletDTO updateWallet = walletService.removeBalance(idWallet, amountToRemove);
+        return ResponseEntity.ok(updateWallet);
+    }
 
 }
