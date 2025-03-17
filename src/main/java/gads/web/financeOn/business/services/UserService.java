@@ -1,9 +1,11 @@
 package gads.web.financeOn.business.services;
 
+import gads.web.financeOn.infrastructure.entity.WalletEntity;
 import gads.web.financeOn.infrastructure.enums.PerfilUserStatus;
 import gads.web.financeOn.infrastructure.entity.UserEntity;
 import gads.web.financeOn.infrastructure.repository.UserRepository;
 import gads.web.financeOn.business.exceptions.BusinessException;
+import gads.web.financeOn.infrastructure.repository.WalletRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -18,11 +20,14 @@ public class UserService {
     private  UserRepository userRepository;
     @Autowired
     private  PasswordEncoder passwordEncoder;
+    @Autowired
+    private WalletRepository walletRepository;
 
     @Autowired
-  public UserService (UserRepository userRepository, PasswordEncoder passwordEncoder) {
+  public UserService (UserRepository userRepository, PasswordEncoder passwordEncoder, WalletRepository walletRepository) {
       this.userRepository = userRepository;
       this.passwordEncoder = passwordEncoder;
+      this.walletRepository = walletRepository;
   }
 
   public List<UserEntity> findAll(){
@@ -49,7 +54,17 @@ public class UserService {
               user.setUpdatedAt(LocalDateTime.now());
               user.setPerfil(PerfilUserStatus.BASIC);
               user.setPassword(passwordEncoder.encode(user.getPassword()));
-              return userRepository.save(user);
+              UserEntity savedUser = userRepository.save(user);
+
+              WalletEntity walletDefealt = new WalletEntity();
+              walletDefealt.setName("Saldo");
+              walletDefealt.setBalance(0.0);
+              walletDefealt.setUser(savedUser);
+              walletDefealt.setCreatedAt(LocalDateTime.now());
+
+              walletRepository.save(walletDefealt);
+
+              return savedUser;
           } else {
               throw ex;
           }

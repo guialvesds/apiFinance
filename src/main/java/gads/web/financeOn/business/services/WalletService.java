@@ -118,7 +118,7 @@ public class WalletService {
         walletEntity.setBalance(newBalance);
 
         WalletEntity saveWallet = walletRepository.save(walletEntity);
-        
+
         return toDTO(saveWallet);
     }
 
