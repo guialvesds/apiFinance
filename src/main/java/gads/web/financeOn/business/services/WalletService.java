@@ -1,6 +1,7 @@
 package gads.web.financeOn.business.services;
 
 import gads.web.financeOn.business.exceptions.BusinessException;
+import gads.web.financeOn.infrastructure.dto.TransferRequestDTO;
 import gads.web.financeOn.infrastructure.dto.WalletDTO;
 import gads.web.financeOn.infrastructure.entity.UserEntity;
 import gads.web.financeOn.infrastructure.entity.WalletEntity;
@@ -126,5 +127,24 @@ public class WalletService {
         this.walletRepository.deleteById(userId);
     }
 
+
+public void transferRequest(TransferRequestDTO transfer){
+
+    WalletEntity senderUser = walletRepository.findByUserIdAndName(transfer.getSenderUser(), "Saldo")
+            .orElseThrow(() -> new BusinessException("Carteira remetente não encontado."));
+
+    WalletEntity receiverUser = walletRepository.findByUserIdAndName(transfer.getReceiverUser(), "Saldo")
+            .orElseThrow(() -> new BusinessException("Carteria destinatário não encontrada."));
+
+    if(senderUser.getBalance() < transfer.getAmount()) {
+        throw new BusinessException("Saldo insuficiente!");
+    } else {
+        senderUser.setBalance(senderUser.getBalance() - transfer.getAmount());
+        receiverUser.setBalance(receiverUser.getBalance() + transfer.getAmount());
+
+        walletRepository.save(senderUser);
+        walletRepository.save(receiverUser);
+    }
+}
 
 }

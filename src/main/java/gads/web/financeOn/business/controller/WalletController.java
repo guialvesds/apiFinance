@@ -2,6 +2,7 @@ package gads.web.financeOn.business.controller;
 
 import gads.web.financeOn.business.exceptions.BusinessException;
 import gads.web.financeOn.business.services.WalletService;
+import gads.web.financeOn.infrastructure.dto.TransferRequestDTO;
 import gads.web.financeOn.infrastructure.dto.WalletDTO;
 import gads.web.financeOn.infrastructure.entity.UserEntity;
 import gads.web.financeOn.infrastructure.entity.WalletEntity;
@@ -68,6 +69,12 @@ public class WalletController {
 
         WalletDTO updateWallet = walletService.removeBalance(idWallet, amountToRemove);
         return ResponseEntity.ok(updateWallet);
+    }
+
+    @PostMapping("/transfer")
+    public ResponseEntity<String> transferBalance(@RequestBody TransferRequestDTO transferRequest) {
+        walletService.transferRequest(transferRequest);
+        return ResponseEntity.ok("Transferência realizada com sucesso.");
     }
 
 }
