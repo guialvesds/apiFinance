@@ -3,13 +3,16 @@ package gads.web.financeOn.business.services;
 import gads.web.financeOn.business.exceptions.BusinessException;
 import gads.web.financeOn.infrastructure.dto.TransferRequestDTO;
 import gads.web.financeOn.infrastructure.dto.WalletDTO;
+import gads.web.financeOn.infrastructure.entity.TransactionEntity;
 import gads.web.financeOn.infrastructure.entity.UserEntity;
 import gads.web.financeOn.infrastructure.entity.WalletEntity;
+import gads.web.financeOn.infrastructure.repository.TransactonRepository;
 import gads.web.financeOn.infrastructure.repository.UserRepository;
 import gads.web.financeOn.infrastructure.repository.WalletRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,12 +23,15 @@ public class WalletService {
     private WalletRepository walletRepository;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private TransactonRepository transactonRepository;
 
     @Autowired
-    public WalletService(WalletRepository walletRepository, UserRepository userRepository) {
+    public WalletService(WalletRepository walletRepository, UserRepository userRepository, TransactonRepository transactonRepository) {
 
         this.walletRepository = walletRepository;
         this.userRepository = userRepository;
+        this.transactonRepository = transactonRepository;
     }
 
     public BusinessException exceptionWalletNotFound() {
@@ -144,7 +150,20 @@ public void transferRequest(TransferRequestDTO transfer){
 
         walletRepository.save(senderUser);
         walletRepository.save(receiverUser);
+
+        saveTransaction(senderUser.getId(), receiverUser.getId(), transfer.getAmount());
     }
+}
+
+private void saveTransaction(String senderUserId, String receiverUserId, double amount){
+    TransactionEntity transaction = new TransactionEntity();
+
+    transaction.setSenderUserId(senderUserId);
+    transaction.setReceiverUserId(receiverUserId);
+    transaction.setAmount(amount);
+    transaction.setTimestamp(LocalDateTime.now());
+
+    transactonRepository.save(transaction);
 }
 
 }
