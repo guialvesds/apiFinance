@@ -19,8 +19,7 @@ public class WalletEntity {
     private String id;
     private String name;
     private Double balance = 00.00;
-    private UserEntity user; //Associação aqui
+    private UserEntity user;
     private LocalDateTime createdAt = LocalDateTime.now();
-    private LocalDateTime balanceInsert = LocalDateTime.now();
 
 }

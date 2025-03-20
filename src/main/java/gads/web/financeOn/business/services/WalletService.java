@@ -10,6 +10,7 @@ import gads.web.financeOn.infrastructure.repository.TransactonRepository;
 import gads.web.financeOn.infrastructure.repository.UserRepository;
 import gads.web.financeOn.infrastructure.repository.WalletRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -161,7 +162,7 @@ private void saveTransaction(String senderUserId, String receiverUserId, double 
     transaction.setSenderUserId(senderUserId);
     transaction.setReceiverUserId(receiverUserId);
     transaction.setAmount(amount);
-    transaction.setTimestamp(LocalDateTime.now());
+    transaction.setCreatedAt(LocalDateTime.now());
 
     transactonRepository.save(transaction);
 }
