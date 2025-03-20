@@ -19,6 +19,6 @@ public class TransactionEntity {
     private String senderUserId;
     private String receiverUserId;
     private double amount;
-    private LocalDateTime timestamp;
+    private LocalDateTime createdAt;
 
 }

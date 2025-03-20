@@ -21,5 +21,6 @@ public class WalletEntity {
     private Double balance = 00.00;
     private UserEntity user; //Associação aqui
     private LocalDateTime createdAt = LocalDateTime.now();
+    private LocalDateTime balanceInsert = LocalDateTime.now();
 
 }
