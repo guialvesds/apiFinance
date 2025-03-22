@@ -24,6 +24,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/v1/wallets/remove/**").permitAll()
                         .requestMatchers("/api/v1/wallets/add/**").permitAll()
                         .requestMatchers("/api/v1/wallets/{id}").permitAll()
+                        .requestMatchers("api/v1/auth/**").permitAll()
                         .anyRequest().authenticated() // Requer autenticação para outros endpoints
                 );
         return http.build();
