@@ -23,7 +23,7 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody UserEntity user){
         try{
-            UserEntity userEntity = userService.findEmail(user.getPassword());
+            UserEntity userEntity = userService.findEmail(user.getEmail());
 
             if(passwordEncoder.matches(user.getPassword(), userEntity.getPassword())) {
 
@@ -34,7 +34,7 @@ public class AuthController {
 
         } catch (BusinessException e) {
 
-            return ResponseEntity.badRequest().body("User not found");
+            return ResponseEntity.badRequest().body(e.getMessage());
 
         }
 
