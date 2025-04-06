@@ -12,5 +12,5 @@ public class FinanceOnApplication {
 		System.setProperty("URI_MONGO_ATLASS", dotenv.get("URI_MONGO_ATLASS"));
 		SpringApplication.run(FinanceOnApplication.class, args);
 	}
-// teste new pc
+// teste on idx.dev
 }
